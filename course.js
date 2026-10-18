@@ -22,12 +22,21 @@ window.CRYPTO_COURSE = [
     "themes": [
       {
         "number": 2,
-        "title": "Таємниці на стрічках і абетках",
-        "description": "Стрічки й абетки · DRAW (Пігпен) · Атбаш",
+        "title": "Графічні шрифти",
+        "description": "Графічні знаки · Пігпен · ланцюжок DRAW",
         "displayNumber": 1,
         "path": "mission02/mission-02.html",
         "chains": [
-          "DRAW",
+          "DRAW"
+        ]
+      },
+      {
+        "number": 21,
+        "displayNumber": "1.1",
+        "title": "Таємниці Біблії",
+        "description": "Дзеркальна абетка · шифр Атбаш",
+        "path": "mission21/mission-21.html",
+        "chains": [
           "Атбаш"
         ]
       },
