@@ -17,10 +17,10 @@
   const theme = group.themes.find(theme => theme.number === number);
   const padded = String(number).padStart(2, '0');
   document.title = `${theme.title} — Криптографія`;
-  document.getElementById('chapter-label').textContent = `Розділ ${groupIndex + 1} · ${group.title}`;
-  document.getElementById('theme-label').textContent = `Тема ${padded}`;
+  document.getElementById('chapter-label').textContent = group.intro ? 'Вхідний квиток · Вхід у світ таємниць' : `Розділ ${group.chapter} · ${group.title}`;
+  document.getElementById('theme-label').textContent = group.intro ? 'Вхідний квиток' : `Тема ${String(theme.displayNumber).padStart(2, '0')}`;
   document.getElementById('theme-title').textContent = theme.title;
   document.getElementById('theme-description').textContent = theme.description;
-  document.getElementById('art-number').textContent = padded;
-  document.getElementById('back').href = new URL(`index.html#chapter-${groupIndex + 1}`, document.querySelector('script[src$="theme.js"]').src).href;
+  document.getElementById('art-number').textContent = group.intro ? '🎟' : String(theme.displayNumber).padStart(2, '0');
+  document.getElementById('back').href = new URL(`index.html#${group.intro ? 'entry-ticket' : 'chapter-' + group.chapter}`, document.querySelector('script[src$="theme.js"]').src).href;
 })();
