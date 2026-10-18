@@ -22,5 +22,5 @@
   document.getElementById('theme-title').textContent = theme.title;
   document.getElementById('theme-description').textContent = theme.description;
   document.getElementById('art-number').textContent = padded;
-  document.getElementById('back').href = `index.html#chapter-${groupIndex + 1}`;
+  document.getElementById('back').href = new URL(`index.html#chapter-${groupIndex + 1}`, document.querySelector('script[src$="theme.js"]').src).href;
 })();
