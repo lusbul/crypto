@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Веббот — Повідомлення стає числом</title>
+<style>
+:root{font-family:system-ui,Arial,sans-serif;color:#ecf8fc;background:#080f1c}*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 90% 0%,#153e49 0%,#080f1c 45%);min-height:100vh}
+.wrap{max-width:860px;margin:auto;padding:20px}a{color:#63e9db}
+h1{color:#ffd575;margin:12px 0 4px}p{line-height:1.55}
+header{border-bottom:1px solid #285461;padding-bottom:14px}.sub{color:#9cc7d0}
+.chat{margin-top:20px;border:1px solid #267581;background:#0c1d2a;border-radius:18px;overflow:hidden}
+.log{min-height:340px;max-height:58vh;overflow-y:auto;padding:22px;display:flex;flex-direction:column;gap:12px}
+.bubble{max-width:87%;padding:14px 16px;border-radius:16px;line-height:1.5;white-space:pre-wrap}
+.bot{align-self:flex-start;background:#153748;border:1px solid #377c8a}.user{align-self:flex-end;background:#5c4c24;border:1px solid #e0b654}
+.controls{border-top:1px solid #295262;padding:16px;background:#091725}
+.choices{display:flex;gap:9px;flex-wrap:wrap}
+button{cursor:pointer;border:1px solid #e4bd63;border-radius:11px;background:#e4bd63;color:#172331;padding:11px 14px;font-weight:700;font-size:1rem}
+button:hover{filter:brightness(1.1)}button.alt{background:#123b48;color:#d6f9f6;border-color:#377e87}
+form{display:flex;gap:8px;margin-top:12px}input{min-width:0;flex:1;border:1px solid #397c8b;border-radius:9px;background:#07131f;color:white;padding:12px;font:inherit}
+small{color:#a8d0d6}.status{color:#ffd575;margin:12px 0}footer{padding:18px 0;color:#8eb6c0;font-size:.9rem}
+@media(max-width:520px){.wrap{padding:12px}.log{padding:13px}.bubble{max-width:96%}form{flex-wrap:wrap}}
+</style></head><body><div class="wrap">
+<header><a href="../index.html">← До уроку</a><h1>🤖 Веббот «Повідомлення стає числом»</h1>
+<div class="sub">Місія: допоможіть котику передати «МЯУ» комп’ютеру</div></header>
+<p class="status" id="status" aria-live="polite">Прогрес: 0 / 6</p>
+<div class="chat"><div class="log" id="log" role="log" aria-live="polite"></div>
+<div class="controls"><div class="choices" id="choices"></div>
+<form id="form"><input id="reply" aria-label="Ваша відповідь" placeholder="Напишіть відповідь…" autocomplete="off"><button type="submit">Надіслати</button></form></div></div>
+<footer>Працює без сервера та реєстрації. Ваші відповіді не передаються на сайт.</footer>
+</div><script>
+const steps=[
+ {q:"Привіт! Я кіт Буч 🐾. Щоб почати, оберіть правильне твердження: що таке біт?",options:["0 або 1","8 символів","Одна літера"],right:0,hint:"Біт має лише два можливі стани.",why:"Так! Біт може мати значення 0 або 1."},
+ {q:"Скільки бітів в одному байті?",options:["2","8","16"],right:1,hint:"Уявіть ряд із восьми перемикачів.",why:"Правильно! 1 байт = 8 бітів."},
+ {q:"Яке десяткове число має двійковий запис 01000001?",options:["41","65","101"],right:1,hint:"Ваги ввімкнених бітів: 64 і 1.",why:"64 + 1 = 65. У ASCII це латинська літера A."},
+ {q:"Який шістнадцятковий запис відповідає числу 255?",options:["FF","AA","F0"],right:0,hint:"У HEX найбільша цифра — F, тобто 15.",why:"FF₁₆ = 15×16 + 15 = 255."},
+ {q:"Чи є українська літера Я у стандартному ASCII?",options:["Так","Ні"],right:1,hint:"Стандартний ASCII містить 128 кодів і не включає кирилицю.",why:"Саме так. Українські літери представлені в Unicode, а UTF-8 визначає їхній запис у байтах."},
+ {q:"Останнє завдання! Який десятковий код Unicode має українська літера «М»?",options:["77","1052","1071"],right:1,hint:"77 — це латинська M, а українська М має інший код.",why:"Чудово! «МЯУ» має десяткові коди Unicode 1052, 1071, 1059. У UTF-8 це байти D0 9C D0 AF D0 A3."}
+];
+let pos=0,attempts=0,done=false;
+const $=id=>document.getElementById(id);
+function say(text,who){const el=document.createElement("div");el.className="bubble "+who;el.textContent=text;$("log").appendChild(el);$("log").scrollTop=$("log").scrollHeight;}
+function question(){if(pos===steps.length){done=true;say("🎉 Місію завершено! Ви розрізняєте біти, байти, HEX, ASCII та UTF-8.\n\nМЯУ → Unicode: 1052 · 1071 · 1059\nМЯУ → UTF-8 (HEX): D0 9C D0 AF D0 A3\n\nКодування не приховує зміст повідомлення — це не шифрування.",'bot');$("choices").replaceChildren();addButton("Почати спочатку",()=>location.reload());$("form").hidden=true;return;}
+const s=steps[pos];say("Завдання "+(pos+1)+"/"+steps.length+"\n"+s.q,'bot');$("choices").replaceChildren();s.options.forEach((v,i)=>addButton(v,()=>answer(i),false));addButton("💡 Підказка",()=>say(s.hint,'bot'),true);$("status").textContent="Прогрес: "+pos+" / "+steps.length;}
+function addButton(text,fn,alt){const b=document.createElement("button");b.type="button";b.textContent=text;if(alt)b.className="alt";b.addEventListener("click",fn);$("choices").appendChild(b);}
+function answer(i){if(done)return;const s=steps[pos];say(s.options[i],'user');if(i===s.right){say("✅ "+s.why,'bot');pos++;setTimeout(question,250);}else{attempts++;say("Ще не зовсім. "+s.hint+" Спробуйте інший варіант.",'bot');}}
+$("form").addEventListener("submit",e=>{e.preventDefault();const value=$("reply").value.trim();if(!value||done)return;$("reply").value="";say(value,'user');const s=steps[pos];const match=s.options.findIndex(v=>v.toLocaleLowerCase('uk')===value.toLocaleLowerCase('uk'));if(match>=0){if(match===s.right){say("✅ "+s.why,'bot');pos++;setTimeout(question,250);}else say("Спробуйте ще. "+s.hint,'bot');}else say("Оберіть одну із запропонованих відповідей. "+s.hint,'bot');});
+question();
+</script></body></html>
