@@ -1,0 +1,77 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Енігма: інтерактивні ротори, панель перемичок, практика, веббот, звіт PDF та Python у браузері."><title>Енігма — Криптографія</title><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="../course-sections.css"><link rel="stylesheet" href="../python-runner.css"><link rel="stylesheet" href="enigma.css"><script src="../python-runner.js" defer></script><script src="enigma-core.js" defer></script><script src="enigma-lab.js" defer></script><script src="lesson.js" defer></script></head><body><header class="topbar wrap"><a class="brand" href="../index.html">⌘ КРИПТОГРАФІЯ</a><a class="nav-link" href="../index.html#chapter-1">До маршруту</a></header><main class="lesson wrap"><div class="enigma-hero"><div><span class="eyebrow gold">Розділ 01 · Шифри минулого</span><p class="theme-label">Місія 5.1 · Енігма</p><h1>Машина зі змінним станом</h1><p class="lesson-lead">Від ключового слова до роторів. Дослідіть шлях сигналу, налаштуйте перемички й прочитайте повідомлення Архіву часу.</p><nav class="section-nav" aria-label="Кроки теми"><a href="#step-1">Відео і матеріали</a><a href="#step-2">Практика</a><a href="#step-3">Веббот</a><a href="#step-4">Шифри в коді</a><a href="#feedback">Зворотний зв’язок</a></nav></div><figure><img src="enigma-cat.png" width="1536" height="1024" alt="Чорний кіт Буч досліджує роторну шифрувальну машину у світлі лампи в таємничому архіві"></figure></div>
+<section class="stage" id="step-1"><h2 class="step-title"><span>1</span>Відео і матеріали</h2><div class="resources"><article class="resource"><span class="eyebrow">Відео</span><h3>Енігма</h3><iframe class="enigma-video" src="https://www.youtube-nocookie.com/embed/LrJScShELvI" title="Відеоурок про Енігму" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><a class="go" href="https://youtu.be/LrJScShELvI?si=4EBKlhYiinmLHgEo" target="_blank" rel="noopener noreferrer">Переглянути на YouTube</a></article><article class="resource"><span class="eyebrow">Матеріали</span><h3>Від Віженера до Енігми</h3><p>Основна презентація — про Енігму. Історичні ручні та дискові шифри з другої презентації спробуємо в кейсах веббота.</p><p><a class="go" href="https://docs.google.com/presentation/d/1nhoIsk3Loh48Z64DKE200uklQ1omr2YoYx_TLlZRKEE/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer">Відкрити презентацію «Енігма»</a></p><p><a class="go" href="https://docs.google.com/presentation/d/17R-VSLZH0kNQaTpFXvnPj1X7oMvgM2fYoQ2oaB1qDm4/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer">Відкрити «Від Віженера до Енігми»</a></p></article></div></section>
+<section class="stage" id="step-2"><h2 class="step-title"><span>2</span>Практика</h2><p class="lesson-lead">У Віженера зсув задає ключове слово. Тут після натискання рухаються ротори й змінюється підстановка. Однакова літера в різних позиціях може дати різні результати.</p><div class="enigma-notes"><article><h3>Шлях сигналу</h3><p>Клавіша → панель перемичок → ротори справа наліво → відбивач → ротори назад → панель → лампочка. Спершу крокують ротори, потім проходить сигнал.</p></article><article><h3>Картка налаштувань</h3><p>Одержувачеві потрібні порядок роторів, кільця, початкові позиції, відбивач і перемички. Перед дешифруванням він відновлює початковий стан.</p></article><article><h3>Перевіряйте гіпотези</h3><p>Для цієї Енігми літера не перетворюється сама в себе. Це допомагає відкинути неможливу позицію слова, але ще не доводить правильність решти варіантів.</p></article></div><article class="resource"><h3>Відкрийте канал Архіву</h3><ol><li>Залиште I–II–III, AAA, кільця AAA, без перемичок. Обробіть <code>AAAAA</code> по одному кроку: результат <code>BDZGO</code>.</li><li>Відновіть старт і обробіть <code>BDZGO</code>. Чому повернулося <code>AAAAA</code>?</li><li>Спробуйте <code>HELLO</code> зі стартом AAA, потім AAB. Змініть лише цей параметр та збережіть обидва досліди.</li><li>Додайте перемички AB і CD. Порівняйте новий результат зі старим.</li><li>Додатково: старт ADU, текст AAA. У журналі знайдіть подвійний крок середнього ротора.</li></ol><p>Це модель трироторної Енігми I/M3 з роторами I–V, відбивачем B і прямою вхідною абеткою. Схема показує обраний шлях сигналу; усі 26 дротів одночасно не малюємо.</p><div id="free-simulator"></div><div class="experiment-list" id="practice-log" aria-live="polite"></div><button class="go" type="button" id="clear-experiments">Очистити журнал практики</button><p id="practice-status" role="status"></p><p><a class="go" href="webbot.html">Далі · місія веббота та PDF-звіт →</a></p></article><details class="resource read-more"><summary>Дізнатися більше · люди, машини й перевірка джерел</summary><p>Довоєнні польські дослідження та робота команд Блетчлі-Парку поєднали математику, перехоплення, інженерію й пошук помилок у правилах користування. Британська Bombe шукала сумісні налаштування, а не читала будь-який текст одним натисканням.</p><p><a href="https://www.tnmoc.org/bombe" target="_blank" rel="noopener noreferrer">Національний музей обчислювальної техніки · Bombe</a> · <a href="https://www.cryptomuseum.com/crypto/enigma/working.htm" target="_blank" rel="noopener noreferrer">Crypto Museum · принцип роботи</a> · <a href="https://enigmamuseum.com/rotwirg.htm" target="_blank" rel="noopener noreferrer">Проводки роторів</a></p><p>У практиці використано повні налаштування і перевірені результати. Умовні кириличні приклади з матеріалів не є контрольними векторами історичної Енігми.</p></details></section>
+<section class="stage" id="step-3"><h2 class="step-title"><span>3</span>Веббот</h2><article class="resource"><span class="eyebrow">Діалог із Криптокотом</span><h3>Остання зала шифрів минулого</h3><p>Кейси Бофора, дисків і Плейфера, складання шляху сигналу, налаштування Енігми, перемички, подвійний крок і перевірка гіпотези. Ваші досліди та відповіді зберуться у звіт наприкінці.</p><p><a class="go" href="webbot.html">Почати веббот →</a></p><p>Кожне перетягування можна виконати натисканнями або з клавіатури. Підказки й готові розв’язання позначаються у звіті; власні пояснення перевіряє викладач.</p></article></section>
+<section class="stage" id="step-4"><h2 class="step-title"><span>4</span>Шифри в коді</h2><article class="py-lab" data-filename="enigma.py"><span class="eyebrow">Python · короткий старт</span><h3>Один ротор і зворотний шлях</h3><p>Ці 8 рядків показують одну проводку ротора I за фіксованої позиції. Це частина принципу роботи, а не вся Енігма. Запуск і редагування — поруч; програмування не є умовою проходження місії.</p><div class="py-layout"><div class="py-reference"><details class="py-sample"><summary>Розгорнути короткий приклад</summary><pre><code class="py-example">alphabet = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
+wiring = &quot;EKMFLGDQVZNTOWYHXUSPAIBRCJ&quot;
+letter, position = &quot;A&quot;, 1
+i = (alphabet.index(letter) + position) % 26
+cipher = alphabet[(alphabet.index(wiring[i]) - position) % 26]
+j = (alphabet.index(cipher) + position) % 26
+back = alphabet[(wiring.index(alphabet[j]) - position) % 26]
+print(letter, &quot;→&quot;, cipher, &quot;→&quot;, back)</code></pre></details><button type="button" class="py-insert">Вставити короткий приклад у Runner</button><div class="py-task"><strong>Запустіть і перевірте себе</strong><ol><li>Результат: <code>A → J → A</code>.</li><li>Змініть <code>position</code> з 1 на 0. Результат: <code>A → E → A</code>. Чому?</li><li>Замініть вхідну літеру та перевірте зворотний шлях.</li></ol><p>Якщо незнайомі <code>index()</code>, остача <code>%</code> або змінні, рекомендуємо ознайомитися з поясненнями нижче.</p></div><details><summary>Пояснення конструкцій Python</summary><p><code>index()</code> знаходить номер літери від 0 до 25; <code>% 26</code> повертає номер у межі абетки; <code>position</code> змінює відносне положення контактів. Зворотний пошук використовує ту саму проводку.</p></details><details class="py-sample"><summary>Дізнатися більше · повна трироторна модель</summary><p>Ті самі ротори, кільця, перемички та подвійний крок, що у практиці. Довший код можна вставити в Runner окремою кнопкою. <a class="go" href="enigma.py" download>Завантажити повний код .py</a></p><pre><code class="py-example">&quot;&quot;&quot;Навчальна реалізація трироторної Енігми I/M3, відбивач B.
+Порядок роторів, старт і кільця задаються зліва направо.
+Історичні параметри: https://enigmamuseum.com/rotwirg.htm
+&quot;&quot;&quot;
+ABC = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
+ROTORS = {
+    &quot;I&quot;: (&quot;EKMFLGDQVZNTOWYHXUSPAIBRCJ&quot;, &quot;Q&quot;),
+    &quot;II&quot;: (&quot;AJDKSIRUXBLHWTMCQGZNPYFVOE&quot;, &quot;E&quot;),
+    &quot;III&quot;: (&quot;BDFHJLCPRTXVZNYEIWGAKMUSQO&quot;, &quot;V&quot;),
+    &quot;IV&quot;: (&quot;ESOVPZJAYQUIRHXLNFTGKDCMWB&quot;, &quot;J&quot;),
+    &quot;V&quot;: (&quot;VZBRGITYUPSDNHLXAWMJQOFECK&quot;, &quot;Z&quot;),
+}
+REFLECTOR = &quot;YRUHQSLDPXNGOKMIEBFZCWVJAT&quot;
+
+
+def enigma(text, start=&quot;AAA&quot;, rings=&quot;AAA&quot;, plugs=&quot;&quot;,
+           order=(&quot;I&quot;, &quot;II&quot;, &quot;III&quot;)):
+    text = text.upper()
+    if any(c not in ABC for c in text):
+        raise ValueError(&quot;Введіть лише латиницю A–Z без пробілів&quot;)
+    if (len(start) != 3 or len(rings) != 3
+            or any(c not in ABC for c in start + rings)):
+        raise ValueError(&quot;Старт і кільця: три літери A–Z&quot;)
+    if len(order) != 3 or len(set(order)) != 3 or any(r not in ROTORS for r in order):
+        raise ValueError(&quot;Потрібні три різні ротори I–V&quot;)
+    pairs = plugs.upper().split()
+    joined = &quot;&quot;.join(pairs)
+    if (len(pairs) &gt; 10 or any(len(p) != 2 for p in pairs)
+            or any(c not in ABC for c in joined)
+            or len(set(joined)) != len(joined)):
+        raise ValueError(&quot;Перемички: до 10 неперетинних пар, наприклад AB CD&quot;)
+    panel = dict(zip(ABC, ABC))
+    for a, b in pairs:
+        panel[a], panel[b] = b, a
+    pos = [ABC.index(c) for c in start]
+    ring = [ABC.index(c) for c in rings]
+    result = &quot;&quot;
+    for letter in text:
+        middle = ABC[pos[1]] == ROTORS[order[1]][1]
+        right = ABC[pos[2]] == ROTORS[order[2]][1]
+        if middle:
+            pos[0] = (pos[0] + 1) % 26
+        if middle or right:
+            pos[1] = (pos[1] + 1) % 26
+        pos[2] = (pos[2] + 1) % 26
+        n = ABC.index(panel[letter])
+        for i in (2, 1, 0):
+            wiring = ROTORS[order[i]][0]
+            offset = pos[i] - ring[i]
+            n = (ABC.index(wiring[(n + offset) % 26]) - offset) % 26
+        n = ABC.index(REFLECTOR[n])
+        for i in (0, 1, 2):
+            wiring = ROTORS[order[i]][0]
+            offset = pos[i] - ring[i]
+            n = (wiring.index(ABC[(n + offset) % 26]) - offset) % 26
+        result += panel[ABC[n]]
+    return result
+
+
+message = &quot;HELLOWORLD&quot;
+cipher = enigma(message)
+print(&quot;Шифр:&quot;, cipher)
+print(&quot;Назад:&quot;, enigma(cipher))
+</code></pre></details><button type="button" class="py-insert">Вставити повну модель у Runner</button></div><div class="py-workspace"><label class="py-editor-label">Runner · змініть код</label><textarea class="py-editor" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Редактор Python"></textarea><div class="py-buttons"><button type="button" class="py-run">▶ Запустити</button><button type="button" class="py-stop" disabled>■ Зупинити</button><button type="button" class="py-copy">Скопіювати</button><button type="button" class="py-save">Завантажити .py</button></div><details class="py-inputs"><summary>Якщо використовуєте input()</summary><label class="py-stdin-label">Вхідні значення · кожне з нового рядка</label><textarea class="py-stdin" spellcheck="false"></textarea></details><label class="py-output-label">Результат</label><pre class="py-output" role="log" aria-live="polite">Натисніть «Запустити».</pre><div class="py-status" role="status"></div></div></div><p class="py-footnote">Перший запуск завантажує Python, тому потрібен інтернет. Короткий приклад і повна модель не потребують додаткових пакетів. Історичні шифри використовуємо для навчання.</p></article></section>
+<section class="stage" id="feedback"><h2 class="step-title"><span>5</span>Зворотний зв’язок</h2><article class="resource"><h3>Енігма · від теорії до перемоги</h3><p>Збережіть PDF після проходження веббота й пройдіть тест. Надана Google-форма приймає відповіді на запитання; PDF передайте викладачу погодженим способом, якщо у формі не додано поле завантаження файла.</p><p><a class="go" href="https://forms.gle/MBuCtFUtATMVNBWCA" target="_blank" rel="noopener noreferrer">Пройти тест і залишити відгук</a></p></article></section>
+<nav class="route" aria-label="Перехід між темами"><a class="go" href="../mission05/mission-05.html">← Шифр Віженера</a><a class="go" href="../mission06/mission-06.html">Далі · Секрет із нулів та одиниць →</a><a class="go" href="../index.html#chapter-1">Перший розділ завершено · До маршруту</a></nav></main><footer class="wrap footer"><span>Криптографія. Подорож у часі</span><span>Шифри минулого · Енігма</span></footer></body></html>
