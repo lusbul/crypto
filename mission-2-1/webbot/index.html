@@ -21,24 +21,24 @@ small{color:#a8d0d6}.status{color:#ffd575;margin:12px 0}footer{padding:18px 0;co
 </style></head><body><div class="wrap">
 <header><a href="../index.html">← До уроку</a><h1>🤖 Веббот «Повідомлення стає числом»</h1>
 <div class="sub">Місія: допоможіть котику передати «МЯУ» комп’ютеру</div></header>
-<p class="status" id="status" aria-live="polite">Прогрес: 0 / 6</p>
+<p class="status" id="status" aria-live="polite">Детективна справа · прогрес: 0 / 6</p>
 <div class="chat"><div class="log" id="log" role="log" aria-live="polite"></div>
 <div class="controls"><div class="choices" id="choices"></div>
 <form id="form"><input id="reply" aria-label="Ваша відповідь" placeholder="Напишіть відповідь…" autocomplete="off"><button type="submit">Надіслати</button></form></div></div>
 <footer>Працює без сервера та реєстрації. Ваші відповіді не передаються на сайт.</footer>
 </div><script>
 const steps=[
- {q:"Привіт! Я кіт Буч 🐾. Щоб почати, оберіть правильне твердження: що таке біт?",options:["0 або 1","8 символів","Одна літера"],right:0,hint:"Біт має лише два можливі стани.",why:"Так! Біт може мати значення 0 або 1."},
- {q:"Скільки бітів в одному байті?",options:["2","8","16"],right:1,hint:"Уявіть ряд із восьми перемикачів.",why:"Правильно! 1 байт = 8 бітів."},
- {q:"Яке десяткове число має двійковий запис 01000001?",options:["41","65","101"],right:1,hint:"Ваги ввімкнених бітів: 64 і 1.",why:"64 + 1 = 65. У ASCII це латинська літера A."},
- {q:"Який шістнадцятковий запис відповідає числу 255?",options:["FF","AA","F0"],right:0,hint:"У HEX найбільша цифра — F, тобто 15.",why:"FF₁₆ = 15×16 + 15 = 255."},
- {q:"Чи є українська літера Я у стандартному ASCII?",options:["Так","Ні"],right:1,hint:"Стандартний ASCII містить 128 кодів і не включає кирилицю.",why:"Саме так. Українські літери представлені в Unicode, а UTF-8 визначає їхній запис у байтах."},
- {q:"Останнє завдання! Який десятковий код Unicode має українська літера «М»?",options:["77","1052","1071"],right:1,hint:"77 — це латинська M, а українська М має інший код.",why:"Чудово! «МЯУ» має десяткові коди Unicode 1052, 1071, 1059. У UTF-8 це байти D0 9C D0 AF D0 A3."}
+ {q:"🐾 Тривога в центрі зв’язку! Замість повідомлення від котика на екрані лише 0 та 1. Спершу з’ясуймо: що таке біт?",options:["0 або 1","8 символів","Одна літера"],right:0,hint:"Біт має лише два можливі стани.",why:"Так! Біт може мати значення 0 або 1."},
+ {q:"🔌 Наш приймач читає інформацію байтами. Скільки бітів містить один байт?",options:["2","8","16"],right:1,hint:"Уявіть ряд із восьми перемикачів.",why:"Правильно! 1 байт = 8 бітів."},
+ {q:"📡 Маяк передав 01000001. Яке це число в десятковій системі?",options:["41","65","101"],right:1,hint:"Ваги ввімкнених бітів: 64 і 1.",why:"64 + 1 = 65. У ASCII це латинська літера A."},
+ {q:"🧪 Лабораторія скорочує довгі записи за допомогою HEX. Який шістнадцятковий запис має число 255?",options:["FF","AA","F0"],right:0,hint:"У HEX найбільша цифра — F, тобто 15.",why:"FF₁₆ = 15×16 + 15 = 255."},
+ {q:"📨 Диспетчер пробує надіслати українську «Я» через ASCII. Чи є ця літера в стандартному ASCII?",options:["Так","Ні"],right:1,hint:"Стандартний ASCII містить 128 кодів і не включає кирилицю.",why:"Саме так. Українські літери представлені в Unicode, а UTF-8 визначає їхній запис у байтах."},
+ {q:"🔎 Фінал розслідування: котик залишив «МЯУ». Який десятковий код Unicode має українська літера «М»?",options:["77","1052","1071"],right:1,hint:"77 — це латинська M, а українська М має інший код.",why:"Чудово! «МЯУ» має десяткові коди Unicode 1052, 1071, 1059. У UTF-8 це байти D0 9C D0 AF D0 A3."}
 ];
 let pos=0,attempts=0,done=false;
 const $=id=>document.getElementById(id);
 function say(text,who){const el=document.createElement("div");el.className="bubble "+who;el.textContent=text;$("log").appendChild(el);$("log").scrollTop=$("log").scrollHeight;}
-function question(){if(pos===steps.length){done=true;say("🎉 Місію завершено! Ви розрізняєте біти, байти, HEX, ASCII та UTF-8.\n\nМЯУ → Unicode: 1052 · 1071 · 1059\nМЯУ → UTF-8 (HEX): D0 9C D0 AF D0 A3\n\nКодування не приховує зміст повідомлення — це не шифрування.",'bot');$("choices").replaceChildren();addButton("Почати спочатку",()=>location.reload());$("form").hidden=true;return;}
+function question(){if(pos===steps.length){done=true;say("🎉 Місію завершено! Ви розрізняєте біти, байти, HEX, ASCII та UTF-8.\n\nМЯУ → Unicode: 1052 · 1071 · 1059\nМЯУ → UTF-8 (HEX): D0 9C D0 AF D0 A3\n\nПродовжіть дослідження в трьох практиках на сторінці уроку\n\nКодування не приховує зміст повідомлення — це не шифрування. Наступний крок — перетворити байти за секретним ключем. Відкрийте практику XOR на сторінці уроку.",'bot');$("choices").replaceChildren();addButton("Почати спочатку",()=>location.reload());$("form").hidden=true;return;}
 const s=steps[pos];say("Завдання "+(pos+1)+"/"+steps.length+"\n"+s.q,'bot');$("choices").replaceChildren();s.options.forEach((v,i)=>addButton(v,()=>answer(i),false));addButton("💡 Підказка",()=>say(s.hint,'bot'),true);$("status").textContent="Прогрес: "+pos+" / "+steps.length;}
 function addButton(text,fn,alt){const b=document.createElement("button");b.type="button";b.textContent=text;if(alt)b.className="alt";b.addEventListener("click",fn);$("choices").appendChild(b);}
 function answer(i){if(done)return;const s=steps[pos];say(s.options[i],'user');if(i===s.right){say("✅ "+s.why,'bot');pos++;setTimeout(question,250);}else{attempts++;say("Ще не зовсім. "+s.hint+" Спробуйте інший варіант.",'bot');}}
