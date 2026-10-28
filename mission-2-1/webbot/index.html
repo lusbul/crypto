@@ -18,16 +18,6 @@ button:hover{filter:brightness(1.1)}button.alt{background:#123b48;color:#d6f9f6;
 form{display:flex;gap:8px;margin-top:12px}input{min-width:0;flex:1;border:1px solid #397c8b;border-radius:9px;background:#07131f;color:white;padding:12px;font:inherit}
 small{color:#a8d0d6}.status{color:#ffd575;margin:12px 0}footer{padding:18px 0;color:#8eb6c0;font-size:.9rem}
 @media(max-width:520px){.wrap{padding:12px}.log{padding:13px}.bubble{max-width:96%}form{flex-wrap:wrap}}
-
-.passport{margin:20px 0;border:1px solid #c8a45b;border-radius:17px;background:#102a38;padding:20px}
-.passport h2{color:#ffd575;margin-top:0}.passport label{display:block;margin:10px 0 5px}
-.passport input{width:100%;max-width:480px}.passport .note{background:#09202b;padding:12px;border-left:3px solid #63e9db;line-height:1.5}
-.passport .actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}.passport[hidden]{display:none!important}
-#certificate{width:794px;max-width:100%;background:#fff;color:#163041;padding:46px;border:12px solid #164f5b;font-family:Arial,sans-serif;line-height:1.55}
-#certificate h2{color:#174e5a;font-size:29px}#certificate .code{font-family:monospace;font-size:19px;overflow-wrap:anywhere;color:#0c5561}
-#certificate .seal{font-size:35px}#certificate .disclaimer{font-size:13px;border-top:1px solid #aaa;padding-top:12px}
-#certRender{position:fixed;left:-10000px;top:0;z-index:-1}
-@media print{body>*{display:none!important}#certRender{display:block!important;position:static!important}#certificate{border:8px solid #164f5b;max-width:none} @page{size:A4;margin:12mm}}
 </style></head><body><div class="wrap">
 <header><a href="../index.html">← До уроку</a><h1>🤖 Веббот «Повідомлення стає числом»</h1>
 <div class="sub">Місія: допоможіть котику передати «МЯУ» комп’ютеру</div></header>
@@ -35,32 +25,8 @@ small{color:#a8d0d6}.status{color:#ffd575;margin:12px 0}footer{padding:18px 0;co
 <div class="chat"><div class="log" id="log" role="log" aria-live="polite"></div>
 <div class="controls"><div class="choices" id="choices"></div>
 <form id="form"><input id="reply" aria-label="Ваша відповідь" placeholder="Напишіть відповідь…" autocomplete="off"><button type="submit">Надіслати</button></form></div></div>
-<section class="passport" id="passport" hidden>
-<h2>🔏 Криптографічний паспорт місії</h2>
-<p>Буч: «Ти пройшов місію! Я згенерую особистий код і додам його до PDF. Але чи справді це цифровий підпис?»</p>
-<p class="note"><strong>Дослідницька підказка.</strong> Випадковий код робить документ відмінним від інших, проте <strong>не доводить авторство й не захищає від підроблення</strong>. Це навчальна імітація, а не справжній цифровий підпис. У наступних місіях ми з’ясуємо, як криптографія допомагає перевіряти документи.</p>
-<label for="studentName">Ім’я або псевдонім учня (без прізвища, якщо не хочете вказувати)</label>
-<input id="studentName" maxlength="65" placeholder="Наприклад, Марія або Кіт_007" autocomplete="off">
-<div class="actions"><button id="makePassport" type="button">🎲 Створити мій паспорт</button><button id="downloadPassport" type="button" hidden>⬇ Завантажити PDF</button><button id="printPassport" type="button" class="alt" hidden>🖨 Зберегти через друк у PDF</button></div>
-<p id="passportFeedback" role="status" aria-live="polite"></p>
-<p><small>Генерація відбувається у вашому браузері. Ім’я та код не надсилаються на сервер. Якщо ви передасте PDF іншій людині, вона зможе скопіювати його.</small></p>
-</section>
 <footer>Працює без сервера та реєстрації. Ваші відповіді не передаються на сайт.</footer>
-</div>
-<div id="certRender" aria-hidden="true"><article id="certificate">
-<div class="seal">🐈 🔐</div><p style="letter-spacing:3px;color:#16727a">КРИПТОГРАФІЯ · РОЗДІЛ 2</p>
-<h2>Криптографічний паспорт місії</h2>
-<p><strong>Місія 2.1. «Повідомлення стає числом»</strong></p>
-<p>Власник паспорта: <strong id="certName"></strong></p>
-<p>Дата: <span id="certDate"></span></p>
-<p>Результат: веббот пройдено (6 із 6 завдань)</p>
-<p>Унікальний навчальний код:</p><p class="code" id="certCode"></p>
-<p>Що я дослідив(ла): біти, байти, Unicode, UTF-8, різницю між кодуванням і шифруванням.</p>
-<p class="disclaimer"><strong>Увага!</strong> Цей документ є навчальною імітацією цифрового підпису. Код випадковий і не засвідчує справжність, особу чи незмінність документа. Для справжнього цифрового підпису потрібні криптографічні ключі та перевірка підпису.</p>
-<p style="color:#16727a">Запитання до місії 2.2: як виконувати операції над числами, щоб після останнього значення повертатися на початок?</p>
-</article></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
-<script>
+</div><script>
 const steps=[
  {q:"🐾 Тривога в центрі зв’язку! Замість повідомлення від котика на екрані лише 0 та 1. Спершу з’ясуймо: що таке біт?",options:["0 або 1","8 символів","Одна літера"],right:0,hint:"Біт має лише два можливі стани.",why:"Так! Біт може мати значення 0 або 1."},
  {q:"🔌 Наш приймач читає інформацію байтами. Скільки бітів містить один байт?",options:["2","8","16"],right:1,hint:"Уявіть ряд із восьми перемикачів.",why:"Правильно! 1 байт = 8 бітів."},
@@ -72,41 +38,10 @@ const steps=[
 let pos=0,attempts=0,done=false;
 const $=id=>document.getElementById(id);
 function say(text,who){const el=document.createElement("div");el.className="bubble "+who;el.textContent=text;$("log").appendChild(el);$("log").scrollTop=$("log").scrollHeight;}
-function question(){if(pos===steps.length){done=true;$("status").textContent="Місію завершено: 6 / 6";$("passport").hidden=false;say("🎉 Місію завершено! Ви розрізняєте біти, байти, HEX, ASCII та UTF-8.\n\nМЯУ → Unicode: 1052 · 1071 · 1059\nМЯУ → UTF-8 (HEX): D0 9C D0 AF D0 A3\n\nПродовжіть дослідження в трьох практиках на сторінці уроку\n\nКодування не приховує зміст повідомлення — це не шифрування. Наступний крок — перетворити байти за секретним ключем. Відкрийте практику XOR на сторінці уроку.",'bot');$("choices").replaceChildren();addButton("Почати спочатку",()=>location.reload());$("form").hidden=true;$("passport").scrollIntoView({behavior:"smooth",block:"start"});return;}
+function question(){if(pos===steps.length){done=true;say("🎉 Місію завершено! Ви розрізняєте біти, байти, HEX, ASCII та UTF-8.\n\nМЯУ → Unicode: 1052 · 1071 · 1059\nМЯУ → UTF-8 (HEX): D0 9C D0 AF D0 A3\n\nПродовжіть дослідження в трьох практиках на сторінці уроку\n\nКодування не приховує зміст повідомлення — це не шифрування. Наступний крок — перетворити байти за секретним ключем. Відкрийте практику XOR на сторінці уроку.",'bot');$("choices").replaceChildren();addButton("Почати спочатку",()=>location.reload());$("form").hidden=true;return;}
 const s=steps[pos];say("Завдання "+(pos+1)+"/"+steps.length+"\n"+s.q,'bot');$("choices").replaceChildren();s.options.forEach((v,i)=>addButton(v,()=>answer(i),false));addButton("💡 Підказка",()=>say(s.hint,'bot'),true);$("status").textContent="Прогрес: "+pos+" / "+steps.length;}
 function addButton(text,fn,alt){const b=document.createElement("button");b.type="button";b.textContent=text;if(alt)b.className="alt";b.addEventListener("click",fn);$("choices").appendChild(b);}
 function answer(i){if(done)return;const s=steps[pos];say(s.options[i],'user');if(i===s.right){say("✅ "+s.why,'bot');pos++;setTimeout(question,250);}else{attempts++;say("Ще не зовсім. "+s.hint+" Спробуйте інший варіант.",'bot');}}
 $("form").addEventListener("submit",e=>{e.preventDefault();const value=$("reply").value.trim();if(!value||done)return;$("reply").value="";say(value,'user');const s=steps[pos];const match=s.options.findIndex(v=>v.toLocaleLowerCase('uk')===value.toLocaleLowerCase('uk'));if(match>=0){if(match===s.right){say("✅ "+s.why,'bot');pos++;setTimeout(question,250);}else say("Спробуйте ще. "+s.hint,'bot');}else say("Оберіть одну із запропонованих відповідей. "+s.hint,'bot');});
-
-let passportReady=false;
-function newCode(){
- const bytes=new Uint8Array(12);
- if(!window.crypto||!crypto.getRandomValues){throw new Error("Для генерації потрібен захищений браузер.");}
- crypto.getRandomValues(bytes);
- return "M21-"+Array.from(bytes,b=>b.toString(16).padStart(2,"0")).join("").toUpperCase().match(/.{1,6}/g).join("-");
-}
-$("makePassport").addEventListener("click",()=>{
- if(!done)return;
- const name=$("studentName").value.trim().replace(/\\s+/g," ");
- if(name.length<2){$("passportFeedback").textContent="Вкажіть ім’я або псевдонім (щонайменше 2 символи).";return;}
- try{
-  const code=newCode(),date=new Intl.DateTimeFormat("uk-UA",{dateStyle:"long"}).format(new Date());
-  $("certName").textContent=name;$("certDate").textContent=date;$("certCode").textContent=code;
-  passportReady=true;$("studentName").disabled=true;$("makePassport").disabled=true;
-  $("downloadPassport").hidden=false;$("printPassport").hidden=false;
-  $("passportFeedback").textContent="Паспорт створено. Код: "+code+". Завантажте PDF. Повторне створення доступне після нового проходження місії.";
- }catch(e){$("passportFeedback").textContent=e.message;}
-});
-$("downloadPassport").addEventListener("click",async()=>{
- if(!passportReady)return;
- const b=$("downloadPassport");b.disabled=true;
- try{
-  if(typeof html2pdf!=="function")throw new Error("Бібліотека PDF не завантажилася (потрібен інтернет).");
-  await html2pdf().set({margin:0,filename:"crypto-passport-mission-2-1.pdf",image:{type:"jpeg",quality:0.98},html2canvas:{scale:2,backgroundColor:"#ffffff"},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["avoid-all"]}}).from($("certificate")).save();
-  $("passportFeedback").textContent="PDF сформовано. Зберігайте його як навчальний паспорт місії.";
- }catch(e){$("passportFeedback").textContent="Не вдалося автоматично створити PDF. Скористайтеся кнопкою «Зберегти через друк у PDF».";}
- finally{b.disabled=false;}
-});
-$("printPassport").addEventListener("click",()=>{if(passportReady)window.print();});
 question();
 </script></body></html>
